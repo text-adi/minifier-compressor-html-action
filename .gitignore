@@ -1,0 +1,7 @@
+**/src/
+**/*.mo
+**/*.po
+.idea/
+venv
+.venv
+.env

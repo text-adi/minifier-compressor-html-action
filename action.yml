@@ -1,0 +1,9 @@
+name: "Minify html files"
+description: "Minify html using the minify html library"
+author: text-adi
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: refresh-ccw
+  color: green
