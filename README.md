@@ -26,8 +26,8 @@ jobs:
       env:
         DIR: templates
         DESTINATION_DIR: minify_templates
-        MINIFY_CSS: False
-        MINIFY_JS: True
+        PARAM_MINIFY_CSS: False
+        PARAM_MINIFY_JS: True
 ```
 
 You can also use an image from the repository. 
