@@ -7,3 +7,4 @@ services:
     environment:
       DIR: src/templates
       DESTINATION_DIR: src/new_templates
+      PARAM_MINIFY_CSS: False
