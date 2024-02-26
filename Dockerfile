@@ -25,4 +25,4 @@ COPY --chmod=700 script /script
 
 COPY --from=builder /install /usr/local/
 
-CMD ["python","/script/main.py"]
+CMD ["python","-W", "ignore", "/script/main.py"]

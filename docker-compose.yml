@@ -8,3 +8,4 @@ services:
       DIR: src/templates
       DESTINATION_DIR: src/new_templates
       PARAM_MINIFY_CSS: False
+      PARAM_KEEP_COMMENTS: True

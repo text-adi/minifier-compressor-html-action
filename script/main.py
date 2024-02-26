@@ -1,3 +1,4 @@
+import json
 import os
 import shutil
 import minify_html
@@ -8,8 +9,23 @@ PARAM = "PARAM_"
 def param_env(name_param: str) -> bool:
     if name_param.startswith(PARAM):
         new_param: str = name_param.split(PARAM)[-1]
-        return os.environ.get(new_param, False)
+        return str(os.environ.get(new_param, False)).lower() in ['true', '1']
     return False
+
+
+settings_minify = dict(
+    keep_closing_tags=param_env(PARAM + 'KEEP_CLOSING_TAGS'),
+    keep_comments=param_env(PARAM + 'KEEP_COMMENTS'),
+    keep_html_and_head_opening_tags=param_env(PARAM + 'KEEP_HTML_AND_HEAD_OPENING_TAGS'),
+    keep_input_type_text_attr=param_env(PARAM + 'KEEP_INPUT_TYPE_TEXT_ATTR'),
+    keep_ssi_comments=param_env(PARAM + 'KEEP_SSI_COMMENTS'),
+    minify_css=param_env(PARAM + 'MINIFY_CSS'),
+    minify_js=param_env(PARAM + 'MINIFY_JS'),
+    preserve_brace_template_syntax=param_env(PARAM + 'PRESERVE_BRACE_TEMPLATE_SYNTAX'),
+    preserve_chevron_percent_template_syntax=param_env(PARAM + 'PRESERVE_CHEVRON_PERCENT_TEMPLATE_SYNTAX'),
+    remove_bangs=param_env(PARAM + 'REMOVE_BANGS'),
+    remove_processing_instructions=param_env(PARAM + 'REMOVE_PROCESSING_INSTRUCTIONS'),
+)
 
 
 def minify_file(file_path: str):
@@ -17,17 +33,7 @@ def minify_file(file_path: str):
         source_code = f.read()
         minified = minify_html.minify(
             source_code,
-            keep_closing_tags=param_env(PARAM + 'KEEP_CLOSING_TAGS'),
-            keep_comments=param_env(PARAM + 'KEEP_COMMENTS'),
-            keep_html_and_head_opening_tags=param_env(PARAM + 'KEEP_HTML_AND_HEAD_OPENING_TAGS'),
-            keep_input_type_text_attr=param_env(PARAM + 'KEEP_INPUT_TYPE_TEXT_ATTR'),
-            keep_ssi_comments=param_env(PARAM + 'KEEP_SSI_COMMENTS'),
-            minify_css=param_env(PARAM + 'MINIFY_CSS'),
-            minify_js=param_env(PARAM + 'MINIFY_JS'),
-            preserve_brace_template_syntax=param_env(PARAM + 'PRESERVE_BRACE_TEMPLATE_SYNTAX'),
-            preserve_chevron_percent_template_syntax=param_env(PARAM + 'PRESERVE_CHEVRON_PERCENT_TEMPLATE_SYNTAX'),
-            remove_bangs=param_env(PARAM + 'REMOVE_BANGS'),
-            remove_processing_instructions=param_env(PARAM + 'REMOVE_PROCESSING_INSTRUCTIONS'),
+            **settings_minify
         )
     with open(file_path, "w") as f:
         f.write(minified)
@@ -68,21 +74,26 @@ class Basic:
 
     @staticmethod
     def title_msg():
-        return """
-
-     ___ __ __      ________      ___   __       ________      ______     __  __         ___   ___      _________   ___ __ __      __          
-    /__//_//_/\    /_______/\    /__/\ /__/\    /_______/\    /_____/\   /_/\/_/\       /__/\ /__/\    /________/\ /__//_//_/\    /_/\         
-    \::\| \| \ \   \__.::._\/    \::\_\\  \ \   \__.::._\/    \::::_\/_  \ \ \ \ \      \::\ \\  \ \   \__.::.__\/ \::\| \| \ \   \:\ \        
-     \:.      \ \     \::\ \      \:. `-\  \ \     \::\ \      \:\/___/\  \:\_\ \ \      \::\/_\ .\ \     \::\ \    \:.      \ \   \:\ \       
-      \:.\-/\  \ \    _\::\ \__    \:. _    \ \    _\::\ \__    \:::._\/   \::::_\/       \:: ___::\ \     \::\ \    \:.\-/\  \ \   \:\ \____  
-       \. \  \  \ \  /__\::\__/\    \. \`-\  \ \  /__\::\__/\    \:\ \       \::\ \        \: \ \\::\ \     \::\ \    \. \  \  \ \   \:\/___/\ 
-        \__\/ \__\/  \________\/     \__\/ \__\/  \________\/     \_\/        \__\/         \__\/ \::\/      \__\/     \__\/ \__\/    \_____\/ 
-                                                                                                                                                                                                        
-    """
+        return """ 
+             ___ __ __      ________      ___   __       ________      ______     __  __         ___   ___      _________   ___ __ __      __          
+            /__//_//_/\    /_______/\    /__/\ /__/\    /_______/\    /_____/\   /_/\/_/\       /__/\ /__/\    /________/\ /__//_//_/\    /_/\         
+            \::\| \| \ \   \__.::._\/    \::\_\\\  \ \   \__.::._\/    \::::_\/_  \ \ \ \ \      \::\ \\\  \ \   \__.::.__\/ \::\| \| \ \   \:\ \        
+             \:.      \ \     \::\ \      \:. `-\  \ \     \::\ \      \:\/___/\  \:\_\ \ \      \::\/_\ .\ \     \::\ \    \:.      \ \   \:\ \       
+              \:.\-/\  \ \    _\::\ \__    \:. _    \ \    _\::\ \__    \:::._\/   \::::_\/       \:: ___::\ \     \::\ \    \:.\-/\  \ \   \:\ \____  
+               \. \  \  \ \  /__\::\__/\    \. \`-\  \ \  /__\::\__/\    \:\ \       \::\ \        \: \ \\\::\ \     \::\ \    \. \  \  \ \   \:\/___/\ 
+                \__\/ \__\/  \________\/     \__\/ \__\/  \________\/     \_\/        \__\/         \__\/ \::\/      \__\/     \__\/ \__\/    \_____\/ 
+                                                                                                                                                                                                                
+                """
 
     @staticmethod
-    def line_msg():
-        return 29 * '-'
+    def line_msg(s='-'):
+        return 29 * s
+
+    @staticmethod
+    def watch_settings():
+        print("Basic param:")
+        for key, value in settings_minify.items():
+            print(f"{key} - {value}")
 
 
 def main():
@@ -119,7 +130,15 @@ def main():
         print(f'DESTINATION_DIR is not set. Skipping the process of copying from source directory')
     print()
 
-    print(f"Starting html minification process in {source_dir}...")
+    print(Basic.line_msg('%'))
+    print()
+    Basic.watch_settings()
+    print()
+    print(Basic.line_msg('%'))
+    print()
+
+    print(f"Starting html minification process in {source_path}...")
+
     for path_to_file, file in Tools().get_all_file_in_dir(source_path, 'html'):
         file_path = os.path.join(path_to_file, file)
         print(f"Minify {file_path}")
