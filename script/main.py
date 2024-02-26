@@ -8,8 +8,7 @@ PARAM = "PARAM_"
 
 def param_env(name_param: str) -> bool:
     if name_param.startswith(PARAM):
-        new_param: str = name_param.split(PARAM)[-1]
-        return str(os.environ.get(new_param, False)).lower() in ['true', '1']
+        return str(os.environ.get(name_param, False)).lower() in ['true', '1']
     return False
 
 
