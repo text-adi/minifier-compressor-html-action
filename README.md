@@ -22,14 +22,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: docker://textadi/minifier-compressor-html-action:v1
+    - uses: docker://textadi/minifier-compressor-html-action:v2
       env:
         DIR: templates
-        DIR: minify_templates
+        DESTINATION_DIR: minify_templates
+        MINIFY_CSS: False
+        MINIFY_JS: True
 ```
 
 You can also use an image from the repository. 
-To do this, specify `text-adi/minifier-compressor-html-action@v1` instead of `docker://textadi/minifier-compressor-html-action:v1`
+To do this, specify `text-adi/minifier-compressor-html-action@v2` instead of `docker://textadi/minifier-compressor-html-action:v2`
 
 ### Configuration
 
