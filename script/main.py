@@ -2,23 +2,32 @@ import os
 import shutil
 import minify_html
 
+PARAM = "PARAM_"
+
+
+def param_env(name_param: str) -> bool:
+    if name_param.startswith(PARAM):
+        new_param: str = name_param.split(PARAM)[-1]
+        return os.environ.get(new_param, False)
+    return False
+
 
 def minify_file(file_path: str):
     with open(file_path, "r") as f:
         source_code = f.read()
         minified = minify_html.minify(
             source_code,
-            keep_closing_tags=False,
-            keep_comments=False,
-            keep_html_and_head_opening_tags=False,
-            keep_input_type_text_attr=False,
-            keep_ssi_comments=False,
-            minify_css=True,
-            minify_js=True,
-            preserve_brace_template_syntax=False,
-            preserve_chevron_percent_template_syntax=False,
-            remove_bangs=False,
-            remove_processing_instructions=False,
+            keep_closing_tags=param_env(PARAM + 'KEEP_CLOSING_TAGS'),
+            keep_comments=param_env(PARAM + 'KEEP_COMMENTS'),
+            keep_html_and_head_opening_tags=param_env(PARAM + 'KEEP_HTML_AND_HEAD_OPENING_TAGS'),
+            keep_input_type_text_attr=param_env(PARAM + 'KEEP_INPUT_TYPE_TEXT_ATTR'),
+            keep_ssi_comments=param_env(PARAM + 'KEEP_SSI_COMMENTS'),
+            minify_css=param_env(PARAM + 'MINIFY_CSS'),
+            minify_js=param_env(PARAM + 'MINIFY_JS'),
+            preserve_brace_template_syntax=param_env(PARAM + 'PRESERVE_BRACE_TEMPLATE_SYNTAX'),
+            preserve_chevron_percent_template_syntax=param_env(PARAM + 'PRESERVE_CHEVRON_PERCENT_TEMPLATE_SYNTAX'),
+            remove_bangs=param_env(PARAM + 'REMOVE_BANGS'),
+            remove_processing_instructions=param_env(PARAM + 'REMOVE_PROCESSING_INSTRUCTIONS'),
         )
     with open(file_path, "w") as f:
         f.write(minified)
