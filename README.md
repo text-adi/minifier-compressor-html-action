@@ -33,7 +33,18 @@ To do this, specify `text-adi/minifier-compressor-html-action@v1` instead of `do
 
 ### Configuration
 
-| Key | Value                                                                                                      | Suggested Type | Required | Default                    |
-| ------------- |------------------------------------------------------------------------------------------------------------| ------------- |---------|----------------------------|
-| `DIR` | Directory with html to be minified                                                                         | `env` | Yes     |                            |
+| Key               | Value                                                                                                    | Suggested Type | Required | Default                            |
+|-------------------|----------------------------------------------------------------------------------------------------------| ------------- |---------|------------------------------------|
+| `DIR`             | Directory with html to be minified                                                                       | `env` | Yes     |                                    |
 | `DESTINATION_DIR` | The directory where the minify files will be saved. If not set, the original html files will be minified | `env` | No      | The value from the `DIR` parameter |
+| `KEEP_CLOSING_TAGS`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `KEEP_COMMENTS`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `KEEP_HTML_AND_HEAD_OPENING_TAGS`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `KEEP_INPUT_TYPE_TEXT_ATTR`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `KEEP_SSI_COMMENTS`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `MINIFY_CSS`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `MINIFY_JS`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `PRESERVE_BRACE_TEMPLATE_SYNTAX`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `PRESERVE_CHEVRON_PERCENT_TEMPLATE_SYNTAX`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `REMOVE_BANGS`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |
+| `REMOVE_PROCESSING_INSTRUCTIONS`          | The corresponding parameter in minifyhtml                                                                        | `env` | No      | False                              |

@@ -14,7 +14,7 @@ LABEL "com.github.actions.description"="Minify html using the minify html librar
 LABEL "com.github.actions.icon"="refresh-ccw"
 LABEL "com.github.actions.color"="green"
 
-LABEL version="1"
+LABEL version="2"
 LABEL repository="https://github.com/text-adi/minifier-compressor-html-action"
 LABEL homepage="https://github.com/text-adi"
 LABEL maintainer="text-adi <text-adi@github.com>"
